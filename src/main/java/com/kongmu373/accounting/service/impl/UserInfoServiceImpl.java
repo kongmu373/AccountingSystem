@@ -2,10 +2,14 @@ package com.kongmu373.accounting.service.impl;
 
 import com.kongmu373.accounting.converter.p2c.UserInfoP2CConverter;
 import com.kongmu373.accounting.dao.UserInfoDao;
+import com.kongmu373.accounting.exception.ResourceNotFoundException;
 import com.kongmu373.accounting.model.common.UserInfoDTO;
+import com.kongmu373.accounting.model.persistence.UserInfoDO;
 import com.kongmu373.accounting.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
@@ -22,6 +26,10 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public UserInfoDTO getUserInfoByUserId(long id) {
-        return userInfoP2CConverter.convert(userInfoDao.getUserInfoByUserId(id));
+        UserInfoDO userinfo =
+                Optional.ofNullable(userInfoDao.getUserInfoByUserId(id))
+                        .orElseThrow(() -> new ResourceNotFoundException(
+                                String.format("user_id %s was not found.", id)));
+        return userInfoP2CConverter.convert(userinfo);
     }
 }

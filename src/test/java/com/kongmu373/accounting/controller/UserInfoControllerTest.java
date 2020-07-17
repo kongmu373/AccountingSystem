@@ -2,7 +2,7 @@ package com.kongmu373.accounting.controller;
 
 import com.kongmu373.accounting.converter.c2s.UserInfoC2SConverter;
 import com.kongmu373.accounting.exception.GlobalExceptionHandler;
-import com.kongmu373.accounting.model.common.UserInfoDTO;
+import com.kongmu373.accounting.model.common.UserInfoDto;
 import com.kongmu373.accounting.service.UserInfoService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,8 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import java.time.Instant;
 
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.reset;
@@ -50,8 +48,7 @@ class UserInfoControllerTest {
         long userId = 1L;
         String username = "admin";
         String password = "admin";
-        Instant now = Instant.now();
-        UserInfoDTO userInfoDTO = UserInfoDTO.builder()
+        UserInfoDto userInfoDTO = UserInfoDto.builder()
                                           .id(userId)
                                           .username(username)
                                           .password(password)

@@ -2,7 +2,7 @@ package com.kongmu373.accounting.dao.impl;
 
 import com.kongmu373.accounting.dao.UserInfoDao;
 import com.kongmu373.accounting.dao.mapper.UserInfoMapper;
-import com.kongmu373.accounting.model.persistence.UserInfoDO;
+import com.kongmu373.accounting.model.persistence.UserInfoDo;
 import lombok.val;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.Instant;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doReturn;
@@ -35,12 +35,12 @@ class UserInfoDaoImplTest {
         val userId = 100L;
         val username = "admin";
         val password = "admin";
-        Instant now = Instant.now();
-        UserInfoDO userInfoDO = UserInfoDO.builder()
+        LocalDate now = LocalDate.now();
+        UserInfoDo userInfoDO = UserInfoDo.builder()
                                         .id(userId)
                                         .username(username)
                                         .password(password)
-                                        .create_time(now)
+                                        .createTime(now)
                                         .build();
         doReturn(userInfoDO).when(userInfoMapper).getUserInfoByUserId(userId);
         // Act

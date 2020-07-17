@@ -3,7 +3,7 @@ package com.kongmu373.accounting.exception;
 import lombok.Data;
 
 /**
- * Accounting System Exception
+ * Accounting System Exception.
  */
 @Data
 public class ServiceException extends RuntimeException {

@@ -1,22 +1,18 @@
-package com.kongmu373.accounting.model.persistence;
+package com.kongmu373.accounting.model.service;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserInfoDO {
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class UserInfoVo {
     private long id;
     private String username;
     private String password;
-    private Instant create_time;
-    private Instant update_time;
-
 }

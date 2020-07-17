@@ -1,10 +1,10 @@
 package com.kongmu373.accounting.converter.p2c;
 
-import com.kongmu373.accounting.model.common.UserInfoDTO;
-import com.kongmu373.accounting.model.persistence.UserInfoDO;
+import com.kongmu373.accounting.model.common.UserInfoDto;
+import com.kongmu373.accounting.model.persistence.UserInfoDo;
 import org.junit.jupiter.api.Test;
 
-import java.time.Instant;
+import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,19 +15,19 @@ class UserInfoP2CConverterTest {
     long userId = 100L;
     String username = "admin";
     String password = "admin";
-    Instant now = Instant.now();
+    LocalDate now = LocalDate.now();
 
     @Test
     void testDoForward() {
         // Arrange
-        UserInfoDO userInfoDO = UserInfoDO.builder()
+        UserInfoDo userInfoDO = UserInfoDo.builder()
                                         .id(userId)
                                         .username(username)
                                         .password(password)
-                                        .create_time(now)
+                                        .createTime(now)
                                         .build();
         // Act
-        UserInfoDTO result = p2CConverter.convert(userInfoDO);
+        UserInfoDto result = p2CConverter.convert(userInfoDO);
         // Assert
         assertThat(result).isNotNull()
                 .hasFieldOrPropertyWithValue("id", userId)
@@ -38,18 +38,18 @@ class UserInfoP2CConverterTest {
     @Test
     void testDoBackward() {
         // Arrange
-        UserInfoDTO userInfoDTO = UserInfoDTO.builder()
+        UserInfoDto userInfoDTO = UserInfoDto.builder()
                                           .id(userId)
                                           .username(username)
                                           .password(password)
                                           .build();
         // Act
-        UserInfoDO result = p2CConverter.reverse().convert(userInfoDTO);
+        UserInfoDo result = p2CConverter.reverse().convert(userInfoDTO);
         // Assert
         assertThat(result).isNotNull()
                 .hasFieldOrPropertyWithValue("id", userId)
                 .hasFieldOrPropertyWithValue("username", username)
                 .hasFieldOrPropertyWithValue("password", password)
-                .hasFieldOrPropertyWithValue("create_time", null);
+                .hasFieldOrPropertyWithValue("createTime", null);
     }
 }

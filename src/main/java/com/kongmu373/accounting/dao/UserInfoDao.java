@@ -1,8 +1,8 @@
 package com.kongmu373.accounting.dao;
 
-import com.kongmu373.accounting.model.persistence.UserInfoDO;
+import com.kongmu373.accounting.model.persistence.UserInfoDo;
 
 public interface UserInfoDao {
 
-    UserInfoDO getUserInfoByUserId(long id);
+    UserInfoDo getUserInfoByUserId(long id);
 }

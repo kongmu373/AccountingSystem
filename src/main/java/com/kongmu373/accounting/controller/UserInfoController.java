@@ -2,7 +2,7 @@ package com.kongmu373.accounting.controller;
 
 import com.kongmu373.accounting.converter.c2s.UserInfoC2SConverter;
 import com.kongmu373.accounting.exception.InvalidParameterException;
-import com.kongmu373.accounting.model.service.UserInfoVO;
+import com.kongmu373.accounting.model.service.UserInfoVo;
 import com.kongmu373.accounting.service.UserInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +25,18 @@ public class UserInfoController {
         this.userInfoService = userInfoService;
     }
 
+    /**
+     * Get user information by specific user id.
+     * @param id the user id
+     * @return userInfo response entity
+     */
     @GetMapping("/{id}")
-    public ResponseEntity<UserInfoVO> getUserInfoByUserId(@PathVariable("id") long id) {
+    public ResponseEntity<UserInfoVo> getUserInfoByUserId(@PathVariable("id") long id) {
         log.debug("get param id: {}", id);
         if (id <= 0L) {
             throw new InvalidParameterException(String.format("The user id %s is invalid", id));
         }
-        UserInfoVO userInfoVO = userInfoC2SConverter.convert(userInfoService.getUserInfoByUserId(id));
+        UserInfoVo userInfoVO = userInfoC2SConverter.convert(userInfoService.getUserInfoByUserId(id));
         return ResponseEntity.ok(userInfoVO);
     }
 }

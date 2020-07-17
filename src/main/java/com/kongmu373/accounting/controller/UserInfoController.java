@@ -4,6 +4,8 @@ import com.kongmu373.accounting.converter.c2s.UserInfoC2SConverter;
 import com.kongmu373.accounting.exception.InvalidParameterException;
 import com.kongmu373.accounting.model.service.UserInfoVo;
 import com.kongmu373.accounting.service.UserInfoService;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Objects;
 
 @RestController
 @RequestMapping("v1.0/users")
@@ -27,16 +31,18 @@ public class UserInfoController {
 
     /**
      * Get user information by specific user id.
+     *
      * @param id the user id
      * @return userInfo response entity
      */
     @GetMapping("/{id}")
+    @SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
     public ResponseEntity<UserInfoVo> getUserInfoByUserId(@PathVariable("id") long id) {
         log.debug("get param id: {}", id);
         if (id <= 0L) {
             throw new InvalidParameterException(String.format("The user id %s is invalid", id));
         }
         UserInfoVo userInfoVO = userInfoC2SConverter.convert(userInfoService.getUserInfoByUserId(id));
-        return ResponseEntity.ok(userInfoVO);
+        return ResponseEntity.ok(Objects.requireNonNull(userInfoVO));
     }
 }

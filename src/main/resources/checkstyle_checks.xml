@@ -343,7 +343,7 @@
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
         <module name="CustomImportOrder">
-            <property name="specialImportsRegExp" value="(com.hardcore)"/>
+            <property name="specialImportsRegExp" value="(com.kongmu373)"/>
             <property name="standardPackageRegExp" value="^(java|javax)\."/>
             <!--<property name="thirdPartyPackageRegExp" value="^(com|org|lombok)\."/>-->
             <property name="sortImportsInGroupAlphabetically" value="true"/>

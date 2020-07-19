@@ -19,6 +19,7 @@ public class UserInfoP2CConverter extends Converter<UserInfoDo, UserInfoDto> {
                    .id(userInfoDO.getId())
                    .username(userInfoDO.getUsername())
                    .password(userInfoDO.getPassword())
+                   .salt(userInfoDO.getSalt())
                    .build();
     }
 

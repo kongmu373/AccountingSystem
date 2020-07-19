@@ -11,7 +11,3 @@ CREATE TABLE `tally_userinfo` (
 
 
 
-INSERT `tally_userinfo` value (NULL, 'admin', '123', NOW(), NULL);
-
-
-UPDATE `tally_userinfo` SET password='admin' where username = 'admin';

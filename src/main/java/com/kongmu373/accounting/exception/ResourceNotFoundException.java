@@ -1,5 +1,7 @@
 package com.kongmu373.accounting.exception;
 
+import static com.kongmu373.accounting.exception.BizErrorCode.RESOURCE_NOT_FOUND;
+
 import org.springframework.http.HttpStatus;
 
 /**
@@ -13,7 +15,7 @@ public class ResourceNotFoundException extends ServiceException {
     public ResourceNotFoundException(String message) {
         super(message);
         this.setStatusCode(HttpStatus.NOT_FOUND.value());
-        this.setErrorCode("NOT_FOUND");
+        this.setErrorCode(RESOURCE_NOT_FOUND);
         this.setErrorType(ErrorType.Client);
     }
 }

@@ -1,5 +1,7 @@
 package com.kongmu373.accounting.exception;
 
+import static com.kongmu373.accounting.exception.BizErrorCode.INVALID_PARAMETER;
+
 import org.springframework.http.HttpStatus;
 
 public class InvalidParameterException extends ServiceException {
@@ -11,6 +13,6 @@ public class InvalidParameterException extends ServiceException {
         super(message);
         this.setStatusCode(HttpStatus.BAD_REQUEST.value());
         this.setErrorType(ErrorType.Client);
-        this.setErrorCode("INVALID_PARAMETER");
+        this.setErrorCode(INVALID_PARAMETER);
     }
 }

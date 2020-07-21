@@ -13,13 +13,11 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Sha256Hash;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
@@ -74,13 +72,12 @@ public class UserInfoServiceImpl implements UserInfoService {
         String encryptedPassword = new Sha256Hash(password, salt, HASH_ITERATIONS).toBase64();
 
         UserInfoDo newUserInfo = UserInfoDo.builder()
-                       .username(username)
-                       .password(encryptedPassword)
-                       .salt(salt)
-                       .createTime(LocalDate.now())
-                       .build();
+                                     .username(username)
+                                     .password(encryptedPassword)
+                                     .salt(salt)
+                                     .createTime(LocalDate.now())
+                                     .build();
         userInfoDao.createUserInfo(newUserInfo);
-        userInfo = userInfoDao.getUserInfoByUserName(username);
-        return userInfoP2CConverter.convert(userInfo);
+        return userInfoP2CConverter.convert(newUserInfo);
     }
 }

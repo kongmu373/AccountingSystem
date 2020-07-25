@@ -24,4 +24,14 @@ public class TagDaoImpl implements TagDao {
     public void createTag(TagDo tagDo) {
         tagMapper.insertTag(tagDo);
     }
+
+    @Override
+    public TagDo getTagById(long id) {
+        return tagMapper.getTagById(id);
+    }
+
+    @Override
+    public void updateTag(TagDo tagDo) {
+        tagMapper.updateTag(tagDo);
+    }
 }

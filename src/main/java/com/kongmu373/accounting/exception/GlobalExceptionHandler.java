@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // DRY: Don't repeat yourself
     @ExceptionHandler(ServiceException.class)
     ResponseEntity<?> handleServiceException(ServiceException ex) {
         val errorResponse = ErrorResponse.builder()
@@ -39,6 +38,18 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     ResponseEntity<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        val errorResponse = ErrorResponse.builder()
+                                .statusCode(HttpStatus.BAD_REQUEST.value())
+                                .errorType(ServiceException.ErrorType.Client)
+                                .code(BizErrorCode.INVALID_PARAMETER)
+                                .message(ex.getMessage())
+                                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST.value())
+                   .body(errorResponse);
+    }
+
+    @ExceptionHandler(NumberFormatException.class)
+    ResponseEntity<?> handleNumberFormatException(NumberFormatException ex) {
         val errorResponse = ErrorResponse.builder()
                                 .statusCode(HttpStatus.BAD_REQUEST.value())
                                 .errorType(ServiceException.ErrorType.Client)

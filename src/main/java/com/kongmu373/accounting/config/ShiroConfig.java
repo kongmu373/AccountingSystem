@@ -39,6 +39,7 @@ public class ShiroConfig {
         LinkedHashMap<String, String> shiroFilterDefinitionMap = new LinkedHashMap<>();
         shiroFilterDefinitionMap.put("/v1.0/session", "anon");
         shiroFilterDefinitionMap.put("/v1.0/tags/**::POST", "authc");
+        shiroFilterDefinitionMap.put("/v1.0/tags/**::PUT", "authc");
         shiroFilterDefinitionMap.put("/v1.0/tags/**", "anon");
 
         shiroFilterDefinitionMap.put("/v1.0/users/**::POST", "anon");

@@ -70,6 +70,35 @@ class TagServiceImplTest {
     }
 
     @Test
+    void updateTagWithHappyCase() {
+        // Arrange
+        val tagId = 100L;
+        val userId = 1900L;
+        val description = "playing";
+        val tag = TagDto.builder()
+                      .id(tagId)
+                      .description(description)
+                      .userId(userId)
+                      .status("ENABLE")
+                      .build();
+        val tagInDb = TagDo.builder()
+                          .id(tagId)
+                          .description(description)
+                          .userId(userId)
+                          .status(1)
+                          .build();
+        when(tagDao.getTagById(tagId))
+            .thenReturn(tagInDb);
+
+
+        // act
+        tagService.updateTag(tag);
+
+        // assert
+        verify(tagDao).updateTag(any(TagDo.class));
+    }
+
+    @Test
     void createTagWithHappyCase() {
         // Arrange
         val tagId = 100L;
@@ -95,5 +124,57 @@ class TagServiceImplTest {
 
         // assert
         verify(tagDao).createTag(any(TagDo.class));
+    }
+
+    @Test
+    void testGetTagByIdThrowsException() {
+        // Arrange
+        val tagId = 100L;
+        val userId = 1900L;
+        val description = "playing";
+        val tag = TagDto.builder()
+                      .id(tagId)
+                      .description(description)
+                      .userId(userId)
+                      .status("ENABLE")
+                      .build();
+        val tagInDb = TagDo.builder()
+                          .id(tagId)
+                          .description(description)
+                          .userId(userId)
+                          .status(1)
+                          .build();
+        when(tagDao.getTagById(1L)).thenReturn(null);
+
+        // Act && Assert
+        Assertions.assertThrows(InvalidParameterException.class, () -> {
+            tagService.getTagById(1L);
+        });
+    }
+
+    @Test
+    void testGetTagById() {
+        // Arrange
+        val tagId = 100L;
+        val userId = 1900L;
+        val description = "playing";
+        val tag = TagDto.builder()
+                      .id(tagId)
+                      .description(description)
+                      .userId(userId)
+                      .status("ENABLE")
+                      .build();
+        val tagInDb = TagDo.builder()
+                          .id(tagId)
+                          .description(description)
+                          .userId(userId)
+                          .status(1)
+                          .build();
+        when(tagDao.getTagById(1L)).thenReturn(tagInDb);
+        // Act
+        TagDto tagDto = tagService.getTagById(1L);
+        // Assert
+        Assertions.assertEquals(tag, tagDto);
+        verify(tagDao).getTagById(1L);
     }
 }

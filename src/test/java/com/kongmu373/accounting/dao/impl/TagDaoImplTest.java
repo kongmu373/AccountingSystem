@@ -86,4 +86,38 @@ class TagDaoImplTest {
         // Assert
         verify(tagMapper).insertTag(any(TagDo.class));
     }
+
+    @Test
+    void updateTag() {
+        // Arrange
+        val tagId = 1000L;
+        val userId = 100L;
+        val description = "playing";
+        val createTime = LocalDateTime.now();
+
+        val tag = TagDo.builder()
+                      .id(tagId)
+                      .userId(userId)
+                      .description(description)
+                      .status(1)
+                      .createTime(createTime)
+                      .build();
+
+        // Act
+        tagDao.updateTag(tag);
+
+        // Verify
+        tagMapper.updateTag(tag);
+    }
+
+    @Test
+    void testGetTagById() {
+        // Arrange
+        val tagId = 1000L;
+
+        // Act
+        tagDao.getTagById(tagId);
+        // Assert
+        verify(tagMapper).getTagById(tagId);
+    }
 }

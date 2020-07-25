@@ -4,7 +4,6 @@ import com.kongmu373.accounting.model.common.TagDto;
 import com.kongmu373.accounting.model.persistence.TagDo;
 
 import com.google.common.base.Converter;
-import com.sun.istack.internal.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.val;
@@ -19,7 +18,7 @@ public class TagP2CConverter extends Converter<TagDo, TagDto> {
     private static final String DISABLE = "DISABLE";
 
     @Override
-    protected TagDto doForward(@NotNull TagDo tagDo) {
+    protected TagDto doForward(TagDo tagDo) {
         return TagDto.builder()
                    .id(tagDo.getId())
                    .description(tagDo.getDescription())

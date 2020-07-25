@@ -7,4 +7,8 @@ public interface TagDao {
     TagDo getTagByDescriptionAndUserId(String description, long userId);
 
     void createTag(TagDo tagDo);
+
+    TagDo getTagById(long id);
+
+    void updateTag(TagDo tagDo);
 }

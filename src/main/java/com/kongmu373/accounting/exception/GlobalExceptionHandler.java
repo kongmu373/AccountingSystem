@@ -4,6 +4,7 @@ import lombok.val;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -28,6 +29,20 @@ public class GlobalExceptionHandler {
     ResponseEntity<?> handleIncorrectCredentialsException(IncorrectCredentialsException ex) {
         val errorResponse = ErrorResponse.builder()
                                 .statusCode(HttpStatus.BAD_REQUEST.value())
+                                .errorType(ServiceException.ErrorType.Client)
+                                .code(BizErrorCode.INVALID_PARAMETER)
+                                .message(ex.getMessage())
+                                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST.value())
+                   .body(errorResponse);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    ResponseEntity<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        val errorResponse = ErrorResponse.builder()
+                                .statusCode(HttpStatus.BAD_REQUEST.value())
+                                .errorType(ServiceException.ErrorType.Client)
+                                .code(BizErrorCode.INVALID_PARAMETER)
                                 .message(ex.getMessage())
                                 .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST.value())

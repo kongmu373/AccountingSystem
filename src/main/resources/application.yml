@@ -4,3 +4,8 @@ spring:
     url: jdbc:mysql://localhost:3306/accounting_test?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: 123
+
+
+logging:
+  level:
+    com.kongmu373.accounting: DEBUG

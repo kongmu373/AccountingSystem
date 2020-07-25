@@ -37,8 +37,10 @@ public class ShiroConfig {
         Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
         filters.put("authc", new CustomFormAuthenticationFilter());
         LinkedHashMap<String, String> shiroFilterDefinitionMap = new LinkedHashMap<>();
-        // TODO: consider different HTTP method may need different filter.
         shiroFilterDefinitionMap.put("/v1.0/session", "anon");
+        shiroFilterDefinitionMap.put("/v1.0/tags/**::POST", "authc");
+        shiroFilterDefinitionMap.put("/v1.0/tags/**", "anon");
+
         shiroFilterDefinitionMap.put("/v1.0/users/**::POST", "anon");
         shiroFilterDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(shiroFilterDefinitionMap);

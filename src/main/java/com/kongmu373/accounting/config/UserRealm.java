@@ -29,7 +29,7 @@ public class UserRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        return null;
+        throw new UnsupportedOperationException("The method is unsupported.");
     }
 
     @Override
@@ -37,7 +37,8 @@ public class UserRealm extends AuthorizingRealm {
         String username = (String) token.getPrincipal();
         UserInfoDto currentUser = userInfoService.getUserInfoByUserName(username);
         ByteSource salt = ByteSource.Util.bytes(currentUser.getSalt());
-        return new SimpleAuthenticationInfo(currentUser.getUsername(), currentUser.getPassword(), salt, this.getName());
+        return new SimpleAuthenticationInfo(currentUser.getUsername(), currentUser.getPassword(), salt,
+            this.getName());
     }
 
 }
